@@ -23,7 +23,7 @@ public class IdentifyTask extends BaseTask {
 
   private static Logger logger = Logger.getLogger(IdentifyTask.class);
 
-  @Scheduled(fixedDelay = 5000)
+  @Scheduled(fixedDelay = 5 * 60 * 1000)
   public void identify() {
     logger.info("Identifying new songs...");
 
