@@ -1,5 +1,5 @@
 applications:
-- name: somusic-services-identify
+- name: somusic-identify
   path: target/somusic-identify-0.0.1-SNAPSHOT.jar
   memory: 256M
   services:

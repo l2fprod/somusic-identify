@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.ektorp.CouchDbConnector;
-import org.ektorp.CouchDbInstance;
 import org.ektorp.ViewQuery;
-import org.springframework.cloud.CloudFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -28,10 +26,6 @@ public class IdentifyTask extends BaseTask {
   @Scheduled(fixedDelay = 5000)
   public void identify() {
     logger.info("Identifying new songs...");
-
-    CouchDbInstance couchDb = new CloudFactory().getCloud().getServiceConnector("cloudant", CouchDbInstance.class,
-        null);
-    logger.info(couchDb.getAllDatabases());
 
     CouchDbConnector db = getSongDb();
     ViewQuery findUnprocessed = new ViewQuery().designDocId("_design/songs").viewName("by_state").key(Status.NEW)
