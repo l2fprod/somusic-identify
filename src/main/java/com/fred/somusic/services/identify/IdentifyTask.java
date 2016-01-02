@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
 import com.fred.somusic.common.BaseTask;
 import com.fred.somusic.common.model.Song;
 import com.fred.somusic.common.model.Song.Status;
+import com.fred.somusic.common.providers.Album;
+import com.fred.somusic.common.providers.Artist;
+import com.fred.somusic.common.providers.Item;
+import com.fred.somusic.common.providers.Provider;
+import com.fred.somusic.common.providers.Track;
 import com.fred.somusic.common.utils.Log;
-import com.fred.somusic.services.identify.providers.Album;
-import com.fred.somusic.services.identify.providers.Artist;
-import com.fred.somusic.services.identify.providers.Item;
-import com.fred.somusic.services.identify.providers.Provider;
-import com.fred.somusic.services.identify.providers.Track;
 
 @Component
 public class IdentifyTask extends BaseTask {
