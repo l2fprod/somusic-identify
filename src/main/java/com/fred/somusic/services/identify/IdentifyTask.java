@@ -44,9 +44,6 @@ public class IdentifyTask extends BaseTask {
   public void identify() {
     logger.info("Identifying new songs...");
 
-    counterService.reset("counters.services.identify.failure");
-    counterService.reset("counters.services.identify.success");
-
     CouchDbConnector db = getSongDb();
     ViewQuery findUnprocessed = new ViewQuery().designDocId("_design/songs").viewName("by_state").key(Status.NEW)
         .includeDocs(true).limit(1000);
