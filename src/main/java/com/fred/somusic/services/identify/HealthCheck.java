@@ -1,14 +1,22 @@
 package com.fred.somusic.services.identify;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.stereotype.Component;
 
-@RestController
-public class HealthCheck {
+import com.fred.somusic.common.BaseTask;
 
-  @RequestMapping("/services/identify/healthcheck")
-  public String healthcheck() {
-    return "OK";
+@Component
+public class HealthCheck extends BaseTask implements HealthIndicator {
+
+  @Override
+  public Health health() {    
+    try {
+      getSongDb();
+      return Health.up().build();
+    } catch (Exception e) {
+      return Health.down(e).build();
+    }
   }
 
 }
