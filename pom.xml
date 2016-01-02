@@ -23,6 +23,12 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>com.github.l2fprod</groupId>
+			<artifactId>somusic-common</artifactId>
+			<version>-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
@@ -30,7 +36,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jetty</artifactId>
 		</dependency>
-		
+
 		<!-- to work with Cloud Foundry VCAP -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -85,7 +91,12 @@
 			<id>spring-milestones</id>
 			<url>http://repo.spring.io/milestone</url>
 		</repository>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
 	</repositories>
+
 	<pluginRepositories>
 		<pluginRepository>
 			<id>spring-snapshots</id>
