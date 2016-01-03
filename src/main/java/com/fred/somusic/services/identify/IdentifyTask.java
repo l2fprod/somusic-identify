@@ -1,5 +1,6 @@
 package com.fred.somusic.services.identify;
 
+import java.nio.charset.Charset;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,26 +22,30 @@ import com.fred.somusic.common.providers.Artist;
 import com.fred.somusic.common.providers.Item;
 import com.fred.somusic.common.providers.Provider;
 import com.fred.somusic.common.providers.Track;
+import com.fred.somusic.common.utils.CouchDBUtils;
 import com.fred.somusic.common.utils.Log;
 
 @Component
 @RestController
 public class IdentifyTask extends BaseTask {
 
-  private static Logger logger = Logger.getLogger(IdentifyTask.class);
+  private static Logger        logger = Logger.getLogger(IdentifyTask.class);
 
   private final CounterService counterService;
 
   @Autowired
-  public IdentifyTask(CounterService counterService) {
+  public IdentifyTask(CounterService counterService) throws Exception {
     this.counterService = counterService;
+
+    CouchDBUtils.createDesignView(getSongDb(), "songs", "by_state", StreamUtils
+        .copyToString(IdentifyTask.class.getResourceAsStream("/database/songs/by_state.js"), Charset.forName("UTF-8")));
   }
-  
+
   @RequestMapping("/tasks/identify")
   public void triggerIdentify() {
     identify();
   }
-  
+
   @Scheduled(fixedDelay = 5 * 60 * 1000)
   public void identify() {
     logger.info("Identifying new songs...");
@@ -101,6 +107,6 @@ public class IdentifyTask extends BaseTask {
       Log.info("identify", song);
       db.update(song);
     }
-    Log.info("identify", "Processing complete");    
+    Log.info("identify", "Processing complete");
   }
 }
