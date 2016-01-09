@@ -1,3 +1,8 @@
-*
-!target
-!manifest.mf
+.settings
+src
+.*
+_*
+manifest.mf
+README.md
+LICENSE
+pom.xml
