@@ -1,10 +1,10 @@
-package com.fred.somusic.services.identify;
+package com.fredericlavigne.somusic.services.identify;
 
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
 
-import com.fred.somusic.common.BaseTask;
+import com.fredericlavigne.somusic.common.BaseTask;
 
 @Component
 public class HealthCheck extends BaseTask implements HealthIndicator {

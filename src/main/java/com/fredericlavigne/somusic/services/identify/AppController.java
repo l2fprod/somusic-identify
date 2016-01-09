@@ -1,4 +1,4 @@
-package com.fred.somusic.services.identify;
+package com.fredericlavigne.somusic.services.identify;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

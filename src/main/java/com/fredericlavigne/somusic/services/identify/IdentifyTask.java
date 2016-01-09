@@ -1,4 +1,4 @@
-package com.fred.somusic.services.identify;
+package com.fredericlavigne.somusic.services.identify;
 
 import java.nio.charset.Charset;
 import java.util.List;
@@ -14,16 +14,16 @@ import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fred.somusic.common.BaseTask;
-import com.fred.somusic.common.model.Song;
-import com.fred.somusic.common.model.Song.Status;
-import com.fred.somusic.common.providers.Album;
-import com.fred.somusic.common.providers.Artist;
-import com.fred.somusic.common.providers.Item;
-import com.fred.somusic.common.providers.Provider;
-import com.fred.somusic.common.providers.Track;
-import com.fred.somusic.common.utils.CouchDBUtils;
-import com.fred.somusic.common.utils.Log;
+import com.fredericlavigne.somusic.common.BaseTask;
+import com.fredericlavigne.somusic.common.model.Song;
+import com.fredericlavigne.somusic.common.model.Song.Status;
+import com.fredericlavigne.somusic.common.providers.Album;
+import com.fredericlavigne.somusic.common.providers.Artist;
+import com.fredericlavigne.somusic.common.providers.Item;
+import com.fredericlavigne.somusic.common.providers.Provider;
+import com.fredericlavigne.somusic.common.providers.Track;
+import com.fredericlavigne.somusic.common.utils.CouchDBUtils;
+import com.fredericlavigne.somusic.common.utils.Log;
 
 @Component
 @RestController
