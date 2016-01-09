@@ -1,2 +1,6 @@
 .settings
 src
+.*
+_*
+manifest.mf
+README.md
