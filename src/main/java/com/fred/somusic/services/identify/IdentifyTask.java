@@ -81,27 +81,27 @@ public class IdentifyTask extends BaseTask {
         // accepted but not resolved, forget it
         song.setState(Status.FAILED);
         counterService.increment("counters.services.identify.failure");
-      } else if (resolved instanceof Artist) {
+      } else {
+        counterService.increment("counters.services.identify.success");        
+      }      
+      
+      if (resolved instanceof Artist) {
         song.setArtist(((Artist) resolved).getName());
         song.setState(Status.DATA_FOUND);
-        counterService.increment("counters.services.identify.success");
       } else if (resolved instanceof Album) {
         song.setArtist(((Album) resolved).getArtist());
         song.setAlbum(((Album) resolved).getName());
         song.setState(Status.DATA_FOUND);
-        counterService.increment("counters.services.identify.success");
       } else if (resolved instanceof Track) {
         song.setArtist(((Track) resolved).getArtist());
         song.setTitle(((Track) resolved).getName());
         song.setAlbum(((Track) resolved).getAlbum());
         song.setState(Status.DATA_FOUND);
-        counterService.increment("counters.services.identify.success");
       }
 
       if (resolved != null && resolved.getImage() != null) {
         song.setImage(resolved.getImage());
         song.setState(Status.IMAGE_FOUND);
-        counterService.increment("counters.services.identify.success");
       }
 
       Log.info("identify", song);
