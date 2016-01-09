@@ -1,6 +1,3 @@
-.settings
-src
-.*
-_*
-manifest.mf
-README.md
+*
+!target
+!manifest.mf
