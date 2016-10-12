@@ -29,7 +29,7 @@ import com.fredericlavigne.somusic.common.utils.Log;
 @RestController
 public class IdentifyTask extends BaseTask {
 
-  private static Logger        logger = Logger.getLogger(IdentifyTask.class);
+  private static Logger logger = Logger.getLogger(IdentifyTask.class);
 
   private final CounterService counterService;
 
@@ -50,14 +50,14 @@ public class IdentifyTask extends BaseTask {
   public void identify() {
     logger.info("Identifying new songs...");
 
-    CouchDbConnector db = getSongDb();
+    final CouchDbConnector db = getSongDb();
     ViewQuery findUnprocessed = new ViewQuery().designDocId("_design/songs").viewName("by_state").key(Status.NEW)
         .includeDocs(true).limit(1000);
     List<Song> songs = db.queryView(findUnprocessed, Song.class);
     Log.info("identify", "Found " + songs.size() + " songs to process");
     int index = 0;
     int count = songs.size();
-    for (Song song : songs) {
+    for (final Song song : songs) {
       index++;
       Log.info("identify", "Processing [" + index + "/" + count + "] " + song.getLink());
 
@@ -65,7 +65,11 @@ public class IdentifyTask extends BaseTask {
       if (provider == null) {
         song.setState(Status.FAILED);
         counterService.increment("counters.services.identify.failure");
-        db.update(song);
+        CouchDBUtils.doWithinLimits(new Runnable() {
+          public void run() {
+            db.update(song);
+          }
+        });
         continue;
       }
 
@@ -82,9 +86,9 @@ public class IdentifyTask extends BaseTask {
         song.setState(Status.FAILED);
         counterService.increment("counters.services.identify.failure");
       } else {
-        counterService.increment("counters.services.identify.success");        
-      }      
-      
+        counterService.increment("counters.services.identify.success");
+      }
+
       if (resolved instanceof Artist) {
         song.setArtist(((Artist) resolved).getName());
         song.setState(Status.DATA_FOUND);
@@ -105,7 +109,11 @@ public class IdentifyTask extends BaseTask {
       }
 
       Log.info("identify", song);
-      db.update(song);
+      CouchDBUtils.doWithinLimits(new Runnable() {
+        public void run() {
+          db.update(song);
+        }
+      });
     }
     Log.info("identify", "Processing complete");
   }
